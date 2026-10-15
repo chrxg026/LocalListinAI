@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101114" />
+  <title>LocalListing AI — Product copy, privately</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="LocalListing AI home"><span class="brand-mark">L</span><span>local<span class="brand-light">listing</span><small>AI STUDIO</small></span></a>
+      <div class="privacy-pill"><span class="live-dot"></span> LOCAL-FIRST AI <span class="pill-divider"></span><span id="modelStatus">Model not loaded</span></div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow"><span class="sparkle">✳</span> MADE FOR INDEPENDENT SELLERS</div>
+        <h1>Your product deserves<br><span>better words.</span></h1>
+        <p class="hero-copy">Turn product details into ready-to-post listings for your shop. No API keys. No per-description fees. Your inputs stay in your browser.</p>
+        <div class="hero-meta"><span><span class="check">✓</span> Open-weight model</span><span><span class="check">✓</span> No API bill</span><span><span class="check">✓</span> Edit before posting</span></div>
+      </section>
+
+      <section class="workspace">
+        <div class="form-panel">
+          <div class="panel-heading"><div><span class="step">01</span><h2>Product details</h2></div><span class="required-note">* Required</span></div>
+          <form id="listingForm">
+            <label for="productName">What are you selling? <span>*</span></label>
+            <input id="productName" name="productName" placeholder="e.g. Handmade terracotta coffee mug" required maxlength="120" />
+
+            <label for="details">Tell us what makes it special <span>*</span></label>
+            <textarea id="details" name="details" rows="4" placeholder="Materials, size, features, what's included… Stick to facts you can verify." required maxlength="900"></textarea>
+            <div class="field-foot"><span>Specific details make stronger listings.</span><span id="charCount">0 / 900</span></div>
+
+            <div class="two-col">
+              <div><label for="platform">Where will you post?</label><select id="platform"><option>Instagram</option><option>WhatsApp Business</option><option>Amazon / Flipkart</option><option>Etsy</option><option>Facebook Marketplace</option><option>My own website</option></select></div>
+              <div><label for="tone">Choose a style</label><select id="tone"><option value="warm and trustworthy">Warm & trustworthy</option><option value="premium and elegant">Premium & elegant</option><option value="playful and catchy">Playful & catchy</option><option value="minimal and direct">Minimal & direct</option></select></div>
+            </div>
+            <div class="two-col">
+              <div><label for="audience">Ideal customer <span class="optional">OPTIONAL</span></label><input id="audience" placeholder="e.g. Coffee lovers, gift buyers" maxlength="120" /></div>
+              <div><label for="price">Price <span class="optional">OPTIONAL</span></label><input id="price" placeholder="e.g. ₹499" maxlength="40" /></div>
+            </div>
+            <button id="generateBtn" class="primary-btn" type="submit"><span class="btn-icon">✳</span><span id="buttonText">Generate my listing</span><span class="arrow">↗</span></button>
+            <p class="model-note"><span class="shield">◈</span> First run downloads the open model. After that, inference runs in your browser; performance depends on your device.</p>
+          </form>
+        </div>
+
+        <div class="output-panel">
+          <div class="panel-heading output-heading"><div><span class="step">02</span><h2>Your listing</h2></div><span class="draft-tag">DRAFT</span></div>
+          <div id="emptyState" class="empty-state"><div class="empty-art"><div class="art-card back"></div><div class="art-card front"><span>✳</span><i></i><i></i><i class="short"></i></div><div class="art-spark">✦</div></div><h3>Your next sale starts here.</h3><p>Fill in your product details and let your local AI draft a listing you can edit, copy, and post.</p><div class="empty-tip"><span>✧</span> Pro tip: include size, material, and care details.</div></div>
+          <div id="loadingState" class="loading-state hidden"><div class="loader"></div><h3 id="loadingTitle">Waking up the model…</h3><p id="loadingMessage">The open model may need to download the first time.</p><div class="progress-track"><div id="progressBar"></div></div></div>
+          <div id="resultState" class="result-state hidden">
+            <div class="result-topline"><span class="result-label">GENERATED COPY</span><span class="local-badge"><span class="live-dot"></span> BROWSER RUN</span></div>
+            <label class="output-label" for="outputTitle">Headline</label><textarea id="outputTitle" class="generated-title" rows="2" aria-label="Generated headline"></textarea>
+            <label class="output-label" for="outputBody">Description</label><textarea id="outputBody" class="generated-body" rows="7" aria-label="Generated description"></textarea>
+            <label class="output-label" for="outputTags">Suggested hashtags / keywords</label><textarea id="outputTags" class="generated-tags" rows="2" aria-label="Suggested hashtags"></textarea>
+            <div class="output-actions"><button id="copyBtn" class="primary-btn copy-btn" type="button">Copy listing <span>↗</span></button><button id="downloadBtn" class="secondary-btn" type="button">Save .txt</button></div>
+            <p id="copyStatus" class="copy-status" aria-live="polite"></p>
+            <p class="review-note">AI drafts can be wrong. Check every claim, price, and product detail before publishing.</p>
+          </div>
+          <div id="errorBox" class="error-box hidden" role="alert"></div>
+          <div class="output-footer"><span>BUILT FOR SMALL SHOPS</span><span>YOUR WORDS. YOUR BUSINESS.</span></div>
+        </div>
+      </section>
+
+      <section class="why-section"><div><span class="eyebrow">WHY OPEN AI?</span><h2>Small business tools<br>shouldn't need big budgets.</h2></div><div class="why-grid"><article><span class="why-icon">⌂</span><h3>Your data stays yours</h3><p>Product details are sent to the model in your browser, not to a paid generation API.</p></article><article><span class="why-icon">∞</span><h3>No cost per draft</h3><p>Once the model is cached, you can draft listings without paying per request or managing API keys.</p></article><article><span class="why-icon">⤧</span><h3>Built to be replaceable</h3><p>The open model can be swapped or adapted as your shop's needs grow.</p></article></div></section>
+      <footer class="site-footer"><span>LocalListing AI <span class="footer-muted">· A tiny tool for the people building something.</span></span><span>HTML · CSS · JS · OPEN-WEIGHT AI</span></footer>
+    </main>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
